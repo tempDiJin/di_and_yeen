@@ -1,0 +1,70 @@
+{%- comment -%}
+  Resolves an album page into a uniform shape, so layouts don't have
+  to branch between "explicit `images:` list" and "auto-discovered
+  `folder:`".
+
+  Input:
+    include.album   — an album page (a doc from site.photos)
+
+  Outputs (visible to the calling template after this include):
+    album_count        Integer — number of photos in the album
+    album_cover        String  — URL path of the cover image
+                                 (defaults to first photo if not set)
+    album_paths        Array<String> — every photo's URL path, in display order
+                                 (only populated when scanning a folder;
+                                 for explicit `images:` callers should
+                                 iterate include.album.images directly to
+                                 preserve captions)
+    album_mode         "explicit" | "folder" | "empty"
+
+  Two modes (auto-detected from front-matter):
+    folder:    /assets/images/2026-05    →  scan that folder, sort by filename
+    images:    [ ... ]                    →  use the explicit list (supports captions)
+{%- endcomment -%}
+
+{%- assign album_paths = "" | split: "" -%}
+{%- assign album_count = 0 -%}
+{%- assign album_cover = include.album.cover -%}
+{%- assign album_mode = "empty" -%}
+
+{%- if include.album.images and include.album.images.size > 0 -%}
+  {%- assign album_mode = "explicit" -%}
+  {%- assign album_count = include.album.images | size -%}
+  {%- if album_cover == nil or album_cover == "" -%}
+    {%- assign first_img = include.album.images | first -%}
+    {%- assign album_cover = first_img.src -%}
+  {%- endif -%}
+
+{%- elsif include.album.folder -%}
+  {%- assign album_mode = "folder" -%}
+  {%- comment -%}Normalise the folder path so it ends with exactly one "/".{%- endcomment -%}
+  {%- assign folder_raw = include.album.folder -%}
+  {%- assign last_char = folder_raw | slice: -1, 1 -%}
+  {%- if last_char == "/" -%}
+    {%- assign folder_prefix = folder_raw -%}
+  {%- else -%}
+    {%- assign folder_prefix = folder_raw | append: "/" -%}
+  {%- endif -%}
+
+  {%- comment -%}
+    Collect every image static file, then filter to the album folder
+    and sort alphabetically by path (which matches numeric order when
+    files are zero-padded like 01.jpg, 02.jpg, ...).
+  {%- endcomment -%}
+  {%- assign jpgs  = site.static_files | where: 'extname', '.jpg'  -%}
+  {%- assign jpegs = site.static_files | where: 'extname', '.jpeg' -%}
+  {%- assign pngs  = site.static_files | where: 'extname', '.png'  -%}
+  {%- assign webps = site.static_files | where: 'extname', '.webp' -%}
+  {%- assign jpgs_uc  = site.static_files | where: 'extname', '.JPG'  -%}
+  {%- assign jpegs_uc = site.static_files | where: 'extname', '.JPEG' -%}
+  {%- assign pngs_uc  = site.static_files | where: 'extname', '.PNG'  -%}
+  {%- assign all_imgs = jpgs | concat: jpegs | concat: pngs | concat: webps | concat: jpgs_uc | concat: jpegs_uc | concat: pngs_uc -%}
+  {%- assign folder_files = all_imgs | where_exp: "f", "f.path contains folder_prefix" | sort: 'path' -%}
+
+  {%- assign album_count = folder_files | size -%}
+  {%- assign album_paths = folder_files | map: 'path' -%}
+
+  {%- if album_cover == nil or album_cover == "" -%}
+    {%- assign album_cover = album_paths | first -%}
+  {%- endif -%}
+{%- endif -%}

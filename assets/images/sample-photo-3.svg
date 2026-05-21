@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde2c2"/>
+      <stop offset="60%" stop-color="#a9c8e0"/>
+      <stop offset="100%" stop-color="#5d83a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <polygon points="0,420 180,260 320,360 460,220 620,340 800,280 800,600 0,600" fill="#3a6048"/>
+  <polygon points="0,470 200,360 360,420 520,330 700,400 800,360 800,600 0,600" fill="#243f30"/>
+  <text x="50%" y="96%" font-family="-apple-system, sans-serif" font-size="22"
+        fill="#ffffff" opacity="0.65" text-anchor="middle">sample placeholder · replace me</text>
+</svg>

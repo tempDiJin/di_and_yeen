@@ -1,0 +1,36 @@
+<header class="site-header">
+  <div class="container site-header-inner">
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <div class="site-header-end">
+      <nav class="site-nav">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/blog/' | relative_url }}">Blog</a>
+        <a href="{{ '/photos/' | relative_url }}">Photos</a>
+        <a href="{{ '/videos/' | relative_url }}">Videos</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+      </nav>
+      {% comment %}
+        Inner-page mini counter — skipped on the homepage because the hero
+        already shows a much bigger version.
+      {% endcomment %}
+      {% unless page.url == '/' %}
+        <time class="day-counter"
+              id="day-counter-mini"
+              datetime="{{ site.counting_since }}"
+              title="Days together (since {{ site.counting_since | date: '%b %-d, %Y' }})"
+              aria-label="Days together">…</time>
+      {% endunless %}
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mini counter in the header on inner pages.
+  (function () {
+    var el = document.getElementById('day-counter-mini');
+    if (!el) return;
+    var startMs = Date.parse(el.getAttribute('datetime'));
+    var days = Math.max(0, Math.floor((Date.now() - startMs) / 86400000));
+    el.textContent = days.toLocaleString() + ' day' + (days === 1 ? '' : 's');
+  })();
+</script>

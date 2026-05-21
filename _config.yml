@@ -1,0 +1,150 @@
+# ─── Site settings ────────────────────────────────────────────────
+title: "The private site of Yeen & Di: memory, life & experience."
+
+# Hero quote rotation — one is picked at random on each page load.
+# The first entry is also the no-JS fallback.
+quotes:
+  - text: "I exist in two places, here and where you are."
+    attribution: "Margaret Atwood"
+  - text: "Absence sharpens love, presence strengthens it."
+    attribution: "Thomas Fuller"
+  - text: "Love knows not distance; it hath no continent."
+    attribution: "Gilbert Parker"
+  - text: "A perfect relationship is just two imperfect people who won't give up on each other."
+    attribution: "after Kate Stewart"
+  - text: "Whatever our souls are made of, yours and mine are the same."
+    attribution: "Emily Brontë, Wuthering Heights"
+  - text: "The best thing to hold onto in life is each other."
+    attribution: "Audrey Hepburn"
+  - text: "Distance is not for the fearful, it is for the bold."
+    attribution: "Meghan Daum"
+  - text: "True love doesn't mean being inseparable; it means being separated and nothing changes."
+    attribution: "Khalil Gibran"
+  - text: "Love is composed of a single soul inhabiting two bodies."
+    attribution: "Aristotle"
+description: >-
+  A small home on the internet for Yeen and Di — photos, words, and
+  the days we've spent together.
+author: "Yeen & Di"
+email: "xutong.jin@gmail.com"
+
+# Counters shown on the homepage hero. Each entry needs:
+#   - since: ISO 8601 timestamp (Pacific Time) for count-up (elapsed)
+#       OR
+#     until: ISO 8601 timestamp (Pacific Time) for count-down (remaining)
+#   - suffix: text after "X days" / "1 day"
+# All counters are rendered at the same size so they line up neatly.
+counters:
+  - since: "2026-05-01T00:00:00-07:00"
+    suffix: "together"
+  - since: "2026-03-26T20:00:00-07:00"
+    suffix: "since Olympic Park Nightwalk"
+  - until: "2026-10-01T00:00:00-07:00"
+    suffix: "to 2026.10.1."
+
+# Backwards-compat: kept so the inner-page mini counter still works.
+counting_since: "2026-05-01T00:00:00-07:00"
+
+# Path to the romantic hero/background image. Drop the file in
+# assets/images/ and update this line.
+hero_image: "/assets/images/lily-hero.jpg"
+
+# Image carousel under the hero — slowly scrolling marquee of photos.
+# Replace these placeholder SVGs with your own photos at any time;
+# any aspect-ratio works (will be displayed at 16:11 ratio, object-fit cover).
+carousel:
+  - src: /assets/images/2026-05-couple/01.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/02.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/03.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/04.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/05.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/06.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/07.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/08.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/09.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/10.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/11.jpg
+    alt: "tmp"
+  - src: /assets/images/2026-05-couple/12.jpg
+    alt: "tmp"
+
+# Set this to your repository URL once you push it.
+# If hosted at username.github.io, leave baseurl empty.
+# If hosted at username.github.io/repo-name, set baseurl: "/repo-name"
+url: "https://tempDiJin.github.io"
+baseurl: "/yeen-and-di"
+
+# Social / contact links shown in the footer (leave blank to hide)
+social:
+  github: ""
+  twitter: ""
+  instagram: ""
+  email: "xutong.jin@gmail.com"
+
+# ─── Build settings ───────────────────────────────────────────────
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:year/:month/:day/:title/
+timezone: America/Los_Angeles
+
+# Pagination on the blog index (requires jekyll-paginate)
+paginate: 6
+paginate_path: "/blog/page:num/"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# ─── Collections ──────────────────────────────────────────────────
+# Photos and videos are collections so you can add entries
+# as individual markdown files in _photos / _videos.
+collections:
+  photos:
+    output: true
+    permalink: /photos/:path/
+  videos:
+    output: true
+    permalink: /videos/:path/
+
+# Default front-matter so you don't have to repeat yourself
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "photos"
+    values:
+      layout: "photo"
+  - scope:
+      path: ""
+      type: "videos"
+    values:
+      layout: "video"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Files to exclude from the build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .github
+  - node_modules

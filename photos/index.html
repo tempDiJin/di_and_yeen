@@ -1,0 +1,33 @@
+---
+layout: default
+title: Albums
+---
+
+<header class="page-header">
+  <h1>Albums</h1>
+  <p class="subtitle">Photos, grouped by trip or moment.</p>
+</header>
+
+<ul class="album-index">
+  {% assign sorted_albums = site.photos | sort: 'date' | reverse %}
+  {% for album in sorted_albums %}
+    {%- include album-resolve.html album=album -%}
+    <li>
+      <a href="{{ album.url | relative_url }}" class="album-card">
+        <figure>
+          {% if album_cover %}
+            <img src="{{ album_cover | relative_url }}" alt="{{ album.title }}" loading="lazy">
+          {% endif %}
+        </figure>
+        <div class="album-meta">
+          <h2>{{ album.title }}</h2>
+          <p>
+            {{ album.date | date: "%b %Y" }}
+            {% if album.location %} · {{ album.location }}{% endif %}
+            {% if album_count > 0 %} · {{ album_count }} photos{% endif %}
+          </p>
+        </div>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

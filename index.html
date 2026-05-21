@@ -1,0 +1,175 @@
+---
+layout: default
+title: Home
+---
+
+<section class="hero hero--romantic">
+  <div class="hero-inner">
+    <h1 class="hero-title">{{ site.title }}</h1>
+
+    <div class="hero-counters">
+      {% for c in site.counters %}
+        <p class="hero-counter"
+           {% if c.since %}data-since="{{ c.since }}"{% endif %}
+           {% if c.until %}data-until="{{ c.until }}"{% endif %}
+           data-suffix="{{ c.suffix }}">
+          <span class="hero-counter-number">…</span>
+          <span class="hero-counter-label">days {{ c.suffix }}</span>
+        </p>
+      {% endfor %}
+    </div>
+
+    <blockquote class="hero-quote" id="hero-quote">
+      {% assign first_quote = site.quotes | first %}
+      <p class="hero-quote-text">“{{ first_quote.text }}”</p>
+      {% if first_quote.attribution %}
+        <cite class="hero-quote-cite">— {{ first_quote.attribution }}</cite>
+      {% endif %}
+    </blockquote>
+  </div>
+</section>
+
+<script id="hero-quotes-data" type="application/json">
+[
+{%- for q in site.quotes -%}
+  {"text": {{ q.text | jsonify }}, "attribution": {{ q.attribution | jsonify }}}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+</script>
+
+<script>
+  // Day counters — fills in every .hero-counter on the page.
+  // Supports two modes:
+  //   data-since="..." → elapsed days since that timestamp (count-up)
+  //   data-until="..." → remaining days until that timestamp (count-down)
+  (function () {
+    var els = document.querySelectorAll('.hero-counter');
+    var DAY_MS = 86400000;
+    els.forEach(function (el) {
+      var since = el.getAttribute('data-since');
+      var until = el.getAttribute('data-until');
+      var days;
+      if (since) {
+        var startMs = Date.parse(since);
+        if (isNaN(startMs)) return;
+        days = Math.max(0, Math.floor((Date.now() - startMs) / DAY_MS));
+      } else if (until) {
+        var endMs = Date.parse(until);
+        if (isNaN(endMs)) return;
+        days = Math.max(0, Math.ceil((endMs - Date.now()) / DAY_MS));
+      } else {
+        return;
+      }
+      var unit = (days === 1 ? 'day' : 'days');
+      var suffix = el.getAttribute('data-suffix') || '';
+      var num = el.querySelector('.hero-counter-number');
+      var lab = el.querySelector('.hero-counter-label');
+      if (num) num.textContent = days.toLocaleString();
+      if (lab) lab.textContent = (unit + ' ' + suffix).trim();
+    });
+  })();
+
+  // Pick a random quote each time the page loads.
+  (function () {
+    var dataEl = document.getElementById('hero-quotes-data');
+    var quoteEl = document.getElementById('hero-quote');
+    if (!dataEl || !quoteEl) return;
+    var quotes;
+    try { quotes = JSON.parse(dataEl.textContent); } catch (e) { return; }
+    if (!quotes || !quotes.length) return;
+    var q = quotes[Math.floor(Math.random() * quotes.length)];
+    var textEl = quoteEl.querySelector('.hero-quote-text');
+    var citeEl = quoteEl.querySelector('.hero-quote-cite');
+    if (textEl) textEl.textContent = '“' + q.text + '”';
+    if (citeEl) citeEl.textContent = '— ' + q.attribution;
+  })();
+</script>
+
+{% if site.carousel and site.carousel.size > 0 %}
+<section class="carousel-section" aria-label="Couple gallery">
+  <div class="carousel-track">
+    {% comment %}Render the list twice so the marquee loops seamlessly.{% endcomment %}
+    {% for img in site.carousel %}
+      <figure class="carousel-item">
+        <img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy">
+      </figure>
+    {% endfor %}
+    {% for img in site.carousel %}
+      <figure class="carousel-item" aria-hidden="true">
+        <img src="{{ img.src | relative_url }}" alt="" loading="lazy">
+      </figure>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section>
+  <div class="section-heading">
+    <h2>Recent posts</h2>
+    <a href="{{ '/blog/' | relative_url }}">All posts →</a>
+  </div>
+  <ul class="post-list">
+    {% for post in site.posts limit:5 %}
+      <li>
+        <p class="post-date">{{ post.date | date: "%b %-d, %Y" }}</p>
+        <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        {% if post.excerpt %}<p class="excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section>
+  <div class="section-heading">
+    <h2>Recent albums</h2>
+    <a href="{{ '/photos/' | relative_url }}">All albums →</a>
+  </div>
+  <ul class="album-grid-home">
+    {% assign latest_albums = site.photos | sort: 'date' | reverse %}
+    {% for album in latest_albums limit:4 %}
+      {%- include album-resolve.html album=album -%}
+      <li>
+        <a href="{{ album.url | relative_url }}" class="album-card">
+          <figure>
+            {% if album_cover %}
+              <img src="{{ album_cover | relative_url }}" alt="{{ album.title }}" loading="lazy">
+            {% endif %}
+          </figure>
+          <div class="album-meta">
+            <h3>{{ album.title }}</h3>
+            <p>
+              {{ album.date | date: "%b %Y" }}
+              {% if album_count > 0 %} · {{ album_count }} photos{% endif %}
+            </p>
+          </div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section style="margin-top:3rem;">
+  <div class="section-heading">
+    <h2>Latest videos</h2>
+    <a href="{{ '/videos/' | relative_url }}">All videos →</a>
+  </div>
+  <ul class="video-grid">
+    {% assign latest_videos = site.videos | sort: 'date' | reverse %}
+    {% for video in latest_videos limit:3 %}
+      <li>
+        <a class="thumb" href="{{ video.url | relative_url }}">
+          {% if video.thumbnail %}
+            <img src="{{ video.thumbnail | relative_url }}" alt="{{ video.title }}">
+          {% elsif video.youtube %}
+            <img src="https://img.youtube.com/vi/{{ video.youtube }}/hqdefault.jpg" alt="{{ video.title }}">
+          {% elsif video.gdrive %}
+            <img src="https://drive.google.com/thumbnail?id={{ video.gdrive }}&sz=w800" alt="{{ video.title }}" loading="lazy" onerror="this.style.display='none'">
+          {% endif %}
+          <span class="play">▶</span>
+        </a>
+        <h3><a href="{{ video.url | relative_url }}">{{ video.title }}</a></h3>
+        <p class="meta">{{ video.date | date: "%b %-d, %Y" }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

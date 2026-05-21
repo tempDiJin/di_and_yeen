@@ -1,0 +1,16 @@
+{
+  "name": "life-personal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal Jekyll site, password-protected with StatiCrypt for production.",
+  "scripts": {
+    "build": "bash scripts/with-ruby.sh bundle exec jekyll build",
+    "encrypt": "bash scripts/encrypt.sh _site",
+    "build:protected": "npm run build && npm run encrypt",
+    "preview:protected": "npm run build:protected && cd _site && python3 -m http.server 4001",
+    "doctor": "bash scripts/with-ruby.sh bash -c 'echo PATH=$PATH; echo; which ruby; ruby -v; which bundle; bundle -v'"
+  },
+  "devDependencies": {
+    "staticrypt": "^3.1.0"
+  }
+}

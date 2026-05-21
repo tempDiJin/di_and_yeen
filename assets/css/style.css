@@ -1,0 +1,664 @@
+---
+# This empty front matter makes Jekyll process the file.
+---
+
+/* ─── Tokens (romantic cream-and-gold palette, matched to the lily) ─ */
+:root {
+  --bg: #fffaf0;            /* warm cream */
+  --surface: #ffffff;
+  --text: #3a2a1c;          /* warm bistre for body text */
+  --muted: #8a7460;         /* dusty gold-grey */
+  --line: #f0e2c8;          /* soft champagne hairline */
+  --accent: #b8860b;        /* deep gold */
+  --accent-hover: #8b6508;
+  --rose: #d4a574;          /* warm gold-rose */
+  --rose-soft: #fdf6e3;     /* very pale champagne */
+  --max-width: 900px;
+  --max-width-wide: 1180px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-serif: "Iowan Old Style", "Apple Garamond", Baskerville, Georgia,
+    "Times New Roman", serif;
+  --font-display: "Playfair Display", "Iowan Old Style", Baskerville, Georgia, serif;
+}
+
+/* Note: dark mode is intentionally NOT respected on this site — the
+   romantic cream-and-gold theme is meant to stay light regardless of
+   the visitor's OS appearance setting. The `color-scheme: light`
+   below also keeps form controls and scrollbars styled for light. */
+:root {
+  color-scheme: light;
+}
+
+/* ─── Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.65;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* The hero image is rendered as a single large background behind the
+   whole document — anchored at the top, scrolling with the page. The
+   visitor opens the page seeing the top of the image (bokeh) and as
+   they scroll down, the image scrolls with them, revealing the lilies
+   at the bottom. */
+body.has-bg-image {
+  background-size: cover;
+  background-position: top center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+}
+
+/* Soft, uniform cream wash over the whole document so content stays
+   readable wherever the visitor is scrolled. Kept fixed to the
+   viewport so the legibility never depends on scroll position. */
+.bg-wash {
+  position: fixed;
+  inset: 0;
+  background: rgba(253, 246, 227, 0.42);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Lift everything else above the wash. */
+body.has-bg-image > * { position: relative; z-index: 1; }
+img, video, iframe { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+/* ─── Layout ──────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+main.container { padding-top: 2.5rem; padding-bottom: 4rem; }
+
+/* On inner pages (everything except homepage), give the main content a
+   cream "letter card" so reading is comfortable over the lily background. */
+body.has-bg-image:not(.layout-default):not(.layout-home) main.container,
+body.has-bg-image.layout-page main.container,
+body.has-bg-image.layout-post main.container,
+body.has-bg-image.layout-photo main.container,
+body.has-bg-image.layout-video main.container {
+  background: rgba(255, 250, 240, 0.95);
+  border-radius: 14px;
+  padding: 2.5rem 2rem 3rem;
+  box-shadow:
+    0 1px 0 rgba(184, 134, 11, 0.08),
+    0 18px 50px -18px rgba(120, 80, 0, 0.18);
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ─── Header ──────────────────────────────────────────────────── */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  padding: 1.1rem 0;
+  background: rgba(255, 250, 240, 0.92);
+  backdrop-filter: saturate(140%) blur(4px);
+  -webkit-backdrop-filter: saturate(140%) blur(4px);
+}
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.site-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.site-title:hover { text-decoration: none; color: var(--accent); }
+.site-header-end {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.site-nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.site-nav a { color: var(--muted); font-size: 0.95rem; }
+.site-nav a:hover { color: var(--text); text-decoration: none; }
+
+/* Day counter — small subtle badge in the top right */
+.day-counter {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Footer ──────────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 0;
+  margin-top: 4rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.site-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.site-footer .social a { margin-left: 0.75rem; color: var(--muted); }
+.site-footer .social a:first-child { margin-left: 0; }
+.site-footer p { margin: 0; }
+
+/* ─── Typography ──────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin: 2.2rem 0 0.75rem;
+}
+h1 { font-size: 2rem; margin-top: 0; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.15rem; }
+p, ul, ol, blockquote { margin: 0 0 1.1rem; }
+blockquote {
+  border-left: 3px solid var(--line);
+  padding: 0.1rem 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.92em;
+  background: var(--line);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+pre {
+  background: var(--line);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+pre code { background: transparent; padding: 0; }
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-top: -0.4rem;
+}
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+/* ─── Home / hero ─────────────────────────────────────────────── */
+.hero {
+  padding: 1rem 0 2.5rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2.5rem;
+}
+.hero h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+.hero p { font-size: 1.1rem; color: var(--muted); margin: 0; max-width: 36rem; }
+
+/* Romantic hero: the lily is now on the body background; the hero
+   itself is a clean cream "letter" sitting over it. */
+.hero--romantic {
+  position: relative;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  border-bottom: none;
+  text-align: center;
+  /* No background here — the body's lily shows through behind the card. */
+}
+.hero--romantic .hero-inner {
+  max-width: 960px;
+  margin: 1.5rem auto 0;
+  background: #fffaf0;            /* solid cream, like a printed card */
+  padding: 2.5rem 2.5rem 2.75rem;
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 rgba(184, 134, 11, 0.10),
+    0 18px 50px -18px rgba(120, 80, 0, 0.25);
+}
+/* Keep the quote on one line on roomy screens; only allow wrapping
+   below ~1000px viewport where the card itself is constrained. */
+.hero-quote p {
+  text-wrap: balance;
+}
+@media (min-width: 1000px) {
+  .hero-quote p { white-space: nowrap; }
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+  letter-spacing: -0.005em;
+  margin: 0 0 1.5rem;
+  color: #9c6a0e;            /* unmistakable dark gold (between accent + accent-hover) */
+  text-shadow: 0 1px 0 rgba(255, 250, 240, 0.6);
+}
+
+/* Horizontal row of counters with a soft gold divider between them. */
+.hero-counters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem 0;
+  margin: 0 0 2rem;
+}
+.hero-counter {
+  margin: 0;
+  padding: 0 2.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.hero-counter + .hero-counter {
+  border-left: 1px solid rgba(184, 134, 11, 0.28);
+}
+/* All counters render at the same size so the three (or more) entries
+   line up neatly in one visual rhythm. Sized for three abreast on
+   desktop without overflow. */
+.hero-counter-number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 6.5vw, 3.5rem);
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.hero-counter-label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8a6320;
+  text-align: center;
+}
+
+/* On narrow screens, fall back to a vertical stack so the long label
+   "days since the night in Olympic Park" doesn't get squashed. */
+@media (max-width: 640px) {
+  .hero-counters {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .hero-counter + .hero-counter {
+    border-left: 0;
+    border-top: 1px solid rgba(184, 134, 11, 0.20);
+    padding-top: 1.25rem;
+  }
+}
+
+/* Quote subtitle — deliberately dark for strong legibility on cream.
+   Explicit centering on every level because browsers apply quirky
+   default alignment to <blockquote> and <cite>. */
+.hero-quote {
+  margin: 0;
+  padding: 0;
+  border-left: none;
+  font-style: normal;
+  text-align: center;
+}
+.hero-quote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: #1f1208;
+  text-align: center;
+  margin: 0 auto 0.6rem;
+}
+.hero-quote cite {
+  display: block;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.85rem;
+  color: #6b4f2e;
+  letter-spacing: 0.04em;
+  margin: 0 auto;
+}
+
+/* On narrow screens, drop the side-edge break-out so the hero stays
+   inside the container padding cleanly. */
+@media (max-width: 600px) {
+  .hero--romantic {
+    min-height: 380px;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding: 3rem 1rem;
+  }
+  .hero--romantic .hero-inner {
+    padding: 1.5rem 1rem 1.75rem;
+  }
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+.section-heading h2 { margin: 0; }
+.section-heading a { font-size: 0.9rem; }
+
+/* ─── Couple-image carousel (rolling marquee) ─────────────────── */
+.carousel-section {
+  position: relative;
+  /* Break out of the container's left/right padding so the marquee
+     looks full-bleed even though the page has gutters. */
+  margin: 0 -1.25rem 3rem;
+  overflow: hidden;
+  /* Soft fade at the left and right edges so images appear to drift
+     in and out rather than appearing abruptly. */
+  mask-image: linear-gradient(90deg,
+      transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg,
+      transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: carousel-scroll 60s linear infinite;
+}
+
+/* Pause on hover so you can look at a particular image. */
+.carousel-section:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+/* Each frame. 16:11 ratio, fixed height; width scales with screen. */
+.carousel-item {
+  margin: 0;
+  flex: 0 0 auto;
+  width: clamp(220px, 28vw, 360px);
+  aspect-ratio: 16 / 11;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgba(184, 134, 11, 0.10),
+    0 10px 24px -12px rgba(120, 80, 0, 0.30);
+  background: var(--rose-soft);
+}
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Move through exactly one set of the duplicated images and snap
+   back, producing a seamless loop. */
+@keyframes carousel-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Respect reduced-motion preferences — don't scroll for users who
+   have asked the OS to minimise animation. */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    animation: none;
+  }
+}
+
+/* ─── Post lists ──────────────────────────────────────────────── */
+.post-list { list-style: none; padding: 0; margin: 0 0 3rem; }
+.post-list li {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.post-list li:last-child { border-bottom: 0; }
+.post-list .post-date {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.post-list a.post-title {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.post-list a.post-title:hover { color: var(--accent); text-decoration: none; }
+.post-list .excerpt { color: var(--muted); margin: 0.2rem 0 0; }
+
+/* ─── Single post ─────────────────────────────────────────────── */
+/* Post pages share the standard container width, with the prose
+   column centered inside it for a balanced look on wide screens. */
+:root {
+  --post-measure: 720px;
+}
+
+body.layout-post main.container {
+  max-width: var(--max-width);
+}
+
+/* The post column sits centered inside the container. */
+body.layout-post .post {
+  max-width: var(--post-measure);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-header { margin-bottom: 1.5rem; }
+.post-header h1 { margin: 0.3rem 0 0.4rem; }
+.post-date {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.post-cover { margin: 1.5rem 0 2rem; }
+.post-cover img { border-radius: 6px; width: 100%; }
+
+.prose { font-family: var(--font-serif); font-size: 1.05rem; }
+.prose h2, .prose h3, .prose h4 { font-family: var(--font-sans); }
+.prose img { border-radius: 6px; margin: 1.5rem 0; max-width: 100%; }
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.post-nav a { color: var(--muted); }
+.post-nav .next { margin-left: auto; }
+
+/* On narrow screens, let the post column fill the container width
+   instead of being squeezed by the prose measure. */
+@media (max-width: 900px) {
+  body.layout-post .post {
+    max-width: 100%;
+  }
+}
+
+/* ─── Pagination ──────────────────────────────────────────────── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+}
+
+/* ─── Album index (Photos page + homepage) ────────────────────── */
+.album-index,
+.album-grid-home {
+  display: grid;
+  gap: 1.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.album-index    { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.album-grid-home { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+.album-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.album-card figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--line);
+}
+.album-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.album-card:hover img {
+  transform: scale(1.03);
+  opacity: 0.94;
+}
+.album-card .album-meta {
+  padding-top: 0.55rem;
+}
+.album-card h2,
+.album-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: -0.005em;
+}
+.album-card .album-meta p {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.album-card:hover h2,
+.album-card:hover h3 {
+  color: var(--accent);
+}
+
+/* ─── Album detail page ───────────────────────────────────────── */
+.album-hero {
+  margin: 0 0 1.75rem;
+}
+.album-hero img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.album-grid figure {
+  margin: 0;
+}
+.album-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+.album-grid figcaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+/* ─── Video grid ──────────────────────────────────────────────── */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.video-grid li { margin: 0; }
+.video-grid .thumb {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.video-grid .thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.25s ease;
+}
+.video-grid .thumb:hover img { transform: scale(1.03); }
+.video-grid .play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.15);
+  color: white;
+  font-size: 2.5rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+.video-grid h3 {
+  font-size: 1rem;
+  margin: 0.6rem 0 0.15rem;
+}
+.video-grid .meta { color: var(--muted); font-size: 0.85rem; margin: 0; }
+
+/* Video frame on detail */
+.video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 1.5rem 0;
+  background: black;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.video-frame iframe,
+.video-frame video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+
+.back-link { color: var(--muted); font-size: 0.95rem; }
+
+/* ─── Responsive tweaks ───────────────────────────────────────── */
+@media (max-width: 540px) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.65rem; }
+  .hero h1 { font-size: 1.9rem; }
+  .site-header-inner { flex-direction: column; align-items: flex-start; }
+  .site-nav { gap: 1rem; }
+}

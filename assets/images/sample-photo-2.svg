@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#f4ead7"/>
+  <g fill="#e8a3b8" opacity="0.9">
+    <circle cx="180" cy="220" r="22"/>
+    <circle cx="220" cy="180" r="20"/>
+    <circle cx="260" cy="240" r="24"/>
+    <circle cx="540" cy="320" r="26"/>
+    <circle cx="600" cy="280" r="22"/>
+    <circle cx="640" cy="340" r="24"/>
+    <circle cx="380" cy="120" r="20"/>
+    <circle cx="420" cy="160" r="22"/>
+  </g>
+  <g stroke="#6b4a2b" stroke-width="6" fill="none" opacity="0.85">
+    <path d="M180,600 Q200,400 240,220"/>
+    <path d="M540,600 Q560,420 600,300"/>
+    <path d="M380,600 Q390,300 410,140"/>
+  </g>
+  <text x="50%" y="96%" font-family="-apple-system, sans-serif" font-size="22"
+        fill="#6b4a2b" opacity="0.55" text-anchor="middle">sample placeholder · replace me</text>
+</svg>

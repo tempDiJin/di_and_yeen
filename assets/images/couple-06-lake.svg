@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="lake-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fdd9b8"/>
+      <stop offset="50%" stop-color="#e8b08d"/>
+      <stop offset="100%" stop-color="#a7798a"/>
+    </linearGradient>
+    <linearGradient id="lake-water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9c8395"/>
+      <stop offset="100%" stop-color="#4a3a55"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="220" fill="url(#lake-sky)"/>
+  <rect y="220" width="600" height="180" fill="url(#lake-water)"/>
+  <circle cx="450" cy="130" r="28" fill="#fff3c4" opacity="0.95"/>
+  <ellipse cx="450" cy="230" rx="40" ry="8" fill="#fff3c4" opacity="0.4"/>
+  <ellipse cx="450" cy="250" rx="30" ry="5" fill="#fff3c4" opacity="0.3"/>
+  <path d="M0,210 Q150,200 300,210 T600,210 L600,220 L0,220 Z" fill="#2a1f3a" opacity="0.85"/>
+  <g fill="#0f0c18" transform="translate(280,160)">
+    <ellipse cx="0" cy="55" rx="13" ry="20"/>
+    <rect x="-5" y="14" width="10" height="48" rx="3"/>
+    <circle cx="0" cy="6" r="8"/>
+    <ellipse cx="22" cy="53" rx="12" ry="22"/>
+    <rect x="17" y="8" width="10" height="50" rx="3"/>
+    <circle cx="22" cy="0" r="8"/>
+  </g>
+</svg>

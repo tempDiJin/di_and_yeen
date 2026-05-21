@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="cafe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde6c6"/>
+      <stop offset="100%" stop-color="#c89977"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#cafe)"/>
+  <g fill="#5e3a26" opacity="0.7">
+    <rect x="30" y="60" width="160" height="220" rx="6"/>
+    <rect x="410" y="60" width="160" height="220" rx="6"/>
+    <rect x="50" y="90" width="120" height="80" fill="#fff5d6" opacity="0.6"/>
+    <rect x="50" y="190" width="120" height="80" fill="#fff5d6" opacity="0.6"/>
+    <rect x="430" y="90" width="120" height="80" fill="#fff5d6" opacity="0.6"/>
+    <rect x="430" y="190" width="120" height="80" fill="#fff5d6" opacity="0.6"/>
+  </g>
+  <ellipse cx="300" cy="320" rx="170" ry="18" fill="#3d2618" opacity="0.6"/>
+  <rect x="200" y="290" width="200" height="20" fill="#4a2c1a" rx="3"/>
+  <g fill="#1a1010" transform="translate(180,200)">
+    <ellipse cx="0" cy="80" rx="22" ry="34"/>
+    <circle cx="0" cy="36" r="13"/>
+  </g>
+  <g fill="#1a1010" transform="translate(420,200)">
+    <ellipse cx="0" cy="80" rx="22" ry="34"/>
+    <circle cx="0" cy="36" r="13"/>
+  </g>
+  <circle cx="270" cy="290" r="10" fill="#fff5d6"/>
+  <circle cx="330" cy="290" r="10" fill="#fff5d6"/>
+</svg>

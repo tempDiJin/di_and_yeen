@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{%- include album-resolve.html album=page -%}
+
+<article class="album">
+  <header class="page-header">
+    <p class="post-date">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      {% if page.location %} · {{ page.location }}{% endif %}
+      {% if album_count > 0 %} · {{ album_count }} photos{% endif %}
+    </p>
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="subtitle">{{ page.subtitle }}</p>{% endif %}
+  </header>
+
+  {% if album_cover %}
+    <figure class="album-hero">
+      <img src="{{ album_cover | relative_url }}" alt="{{ page.title }}">
+    </figure>
+  {% endif %}
+
+  {% if content != "" %}
+    <div class="prose">
+      {{ content }}
+    </div>
+  {% endif %}
+
+  {%- comment -%}
+    Render the rest of the album. Skip the cover if it would be
+    repeated as the first image (in either mode).
+  {%- endcomment -%}
+  {% if album_count > 0 %}
+    <div class="album-grid">
+      {% if album_mode == "explicit" %}
+        {% for img in page.images %}
+          {% unless img.src == album_cover and forloop.first %}
+            <figure>
+              <img src="{{ img.src | relative_url }}" alt="{{ img.alt | default: page.title }}" loading="lazy">
+              {% if img.caption %}<figcaption>{{ img.caption }}</figcaption>{% endif %}
+            </figure>
+          {% endunless %}
+        {% endfor %}
+      {% elsif album_mode == "folder" %}
+        {% for path in album_paths %}
+          {% unless path == album_cover and forloop.first %}
+            <figure>
+              <img src="{{ path | relative_url }}" alt="{{ page.title }}" loading="lazy">
+            </figure>
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <p><a class="back-link" href="{{ '/photos/' | relative_url }}">← All albums</a></p>
+</article>

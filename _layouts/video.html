@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<article class="video-detail">
+  <header class="page-header">
+    <p class="post-date">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+    </p>
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="subtitle">{{ page.subtitle }}</p>{% endif %}
+  </header>
+
+  {% include video-embed.html %}
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <p><a class="back-link" href="{{ '/videos/' | relative_url }}">← All videos</a></p>
+</article>

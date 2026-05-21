@@ -1,0 +1,32 @@
+---
+layout: default
+title: Videos
+---
+
+<header class="page-header">
+  <h1>Videos</h1>
+  <p class="subtitle">Clips from places I've been and things I've made.</p>
+</header>
+
+<ul class="video-grid">
+  {% assign sorted_videos = site.videos | sort: 'date' | reverse %}
+  {% for video in sorted_videos %}
+    <li>
+      <a class="thumb" href="{{ video.url | relative_url }}">
+        {% if video.thumbnail %}
+          <img src="{{ video.thumbnail | relative_url }}" alt="{{ video.title }}">
+        {% elsif video.youtube %}
+          <img src="https://img.youtube.com/vi/{{ video.youtube }}/hqdefault.jpg" alt="{{ video.title }}">
+        {% elsif video.gdrive %}
+          <img src="https://drive.google.com/thumbnail?id={{ video.gdrive }}&sz=w800" alt="{{ video.title }}" loading="lazy" onerror="this.style.display='none'">
+        {% endif %}
+        <span class="play">▶</span>
+      </a>
+      <h3><a href="{{ video.url | relative_url }}">{{ video.title }}</a></h3>
+      <p class="meta">
+        {{ video.date | date: "%b %-d, %Y" }}
+        {% if video.youtube %} · YouTube{% elsif video.vimeo %} · Vimeo{% elsif video.gdrive %} · Google Drive{% elsif video.file %} · Self-hosted{% endif %}
+      </p>
+    </li>
+  {% endfor %}
+</ul>

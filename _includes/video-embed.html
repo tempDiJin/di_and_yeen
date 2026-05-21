@@ -1,0 +1,48 @@
+{% comment %}
+  Renders a video based on the page's front-matter.
+  Supports four modes:
+    1. youtube: <video-id>
+    2. vimeo:   <video-id>
+    3. gdrive:  <google-drive-file-id>           (file must be "Anyone with link")
+    4. file:    /assets/videos/your-clip.mp4     (self-hosted)
+{% endcomment %}
+
+{% if page.youtube %}
+  <div class="video-frame">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}"
+      title="{{ page.title }}"
+      loading="lazy"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+{% elsif page.vimeo %}
+  <div class="video-frame">
+    <iframe
+      src="https://player.vimeo.com/video/{{ page.vimeo }}"
+      title="{{ page.title }}"
+      loading="lazy"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+{% elsif page.gdrive %}
+  <div class="video-frame">
+    <iframe
+      src="https://drive.google.com/file/d/{{ page.gdrive }}/preview"
+      title="{{ page.title }}"
+      loading="lazy"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen></iframe>
+  </div>
+{% elsif page.file %}
+  <div class="video-frame video-frame--native">
+    <video controls preload="metadata" {% if page.poster %}poster="{{ page.poster | relative_url }}"{% endif %}>
+      <source src="{{ page.file | relative_url }}" type="video/mp4">
+      Your browser doesn't support embedded video.
+      <a href="{{ page.file | relative_url }}">Download the video.</a>
+    </video>
+  </div>
+{% endif %}
