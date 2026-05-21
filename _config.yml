@@ -91,6 +91,14 @@ social:
   instagram: ""
   email: "xutong.jin@gmail.com"
 
+# Footer quote rotation — one Korean phrase is picked at random on
+# each page load. The first entry is also the no-JS fallback.
+footer_quotes:
+  - "거리는 사람을 멀어지게 하지 않는다. 마음이 멀어지게 할 뿐이다."
+  - "서로 다른 시간을 살아도, 같은 마음이면 괜찮다."
+  - "함께 만든 기억은 쉽게 사라지지 않는다."
+  - "다른 도시, 같은 공간."
+
 # ─── Build settings ───────────────────────────────────────────────
 markdown: kramdown
 highlighter: rouge

@@ -1,12 +1,41 @@
 <footer class="site-footer">
   <div class="container site-footer-inner">
-    <p class="copyright">© {{ 'now' | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
-    <p class="social">
-      {% if site.social.github != "" %}<a href="https://github.com/{{ site.social.github }}">GitHub</a>{% endif %}
-      {% if site.social.twitter != "" %}<a href="https://twitter.com/{{ site.social.twitter }}">Twitter</a>{% endif %}
-      {% if site.social.instagram != "" %}<a href="https://instagram.com/{{ site.social.instagram }}">Instagram</a>{% endif %}
-      {% if site.social.email != "" %}<a href="mailto:{{ site.social.email }}">Email</a>{% endif %}
-      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-    </p>
+
+    {% if site.footer_quotes and site.footer_quotes.size > 0 %}
+      <p class="footer-quote" id="footer-quote" lang="ko">
+        {{ site.footer_quotes | first }}
+      </p>
+
+      <script id="footer-quotes-data" type="application/json">
+[
+{%- for q in site.footer_quotes -%}
+  {{ q | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+      </script>
+
+      <script>
+        (function () {
+          var dataEl = document.getElementById('footer-quotes-data');
+          var quoteEl = document.getElementById('footer-quote');
+          if (!dataEl || !quoteEl) return;
+          var quotes;
+          try { quotes = JSON.parse(dataEl.textContent); } catch (e) { return; }
+          if (!quotes || !quotes.length) return;
+          quoteEl.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        })();
+      </script>
+    {% endif %}
+
+    <div class="site-footer-bottom">
+      <p class="copyright">© {{ 'now' | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
+      <p class="social">
+        {% if site.social.github != "" %}<a href="https://github.com/{{ site.social.github }}">GitHub</a>{% endif %}
+        {% if site.social.twitter != "" %}<a href="https://twitter.com/{{ site.social.twitter }}">Twitter</a>{% endif %}
+        {% if site.social.instagram != "" %}<a href="https://instagram.com/{{ site.social.instagram }}">Instagram</a>{% endif %}
+        {% if site.social.email != "" %}<a href="mailto:{{ site.social.email }}">Email</a>{% endif %}
+        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      </p>
+    </div>
   </div>
 </footer>

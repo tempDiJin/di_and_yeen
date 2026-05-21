@@ -107,6 +107,11 @@ body.has-bg-image.layout-video main.container {
   backdrop-filter: saturate(140%) blur(4px);
   -webkit-backdrop-filter: saturate(140%) blur(4px);
 }
+/* Header gets a wider container than the body so the long site title
+   fits on one line alongside the nav. */
+.site-header .container {
+  max-width: var(--max-width-wide);
+}
 .site-header-inner {
   display: flex;
   align-items: center;
@@ -147,12 +152,34 @@ body.has-bg-image.layout-video main.container {
 /* ─── Footer ──────────────────────────────────────────────────── */
 .site-footer {
   border-top: 1px solid var(--line);
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 1.75rem;
   margin-top: 4rem;
   color: var(--muted);
   font-size: 0.85rem;
 }
 .site-footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Korean rotating quote — sits centered above the copyright row. */
+.footer-quote {
+  margin: 0 auto;
+  align-self: center;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #6b5a44;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  max-width: 44rem;
+}
+
+/* Copyright + social row — flex along the bottom. */
+.site-footer-bottom {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
