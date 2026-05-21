@@ -14,7 +14,7 @@
   --rose: #d4a574;          /* warm gold-rose */
   --rose-soft: #fdf6e3;     /* very pale champagne */
   --max-width: 900px;
-  --max-width-wide: 1180px;
+  --max-width-wide: 1600px;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
     Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-serif: "Iowan Old Style", "Apple Garamond", Baskerville, Georgia,
@@ -249,14 +249,18 @@ pre code { background: transparent; padding: 0; }
    itself is a clean cream "letter" sitting over it. */
 .hero--romantic {
   position: relative;
-  margin: 0 0 2.5rem;
+  /* Break out of the parent main.container's 900px width so the cream
+     "letter card" can be wider than the body's prose width, allowing
+     the long site title to fit on one line. The calc trick maps the
+     hero's left/right edges back to the viewport edges.  */
+  margin: 0 calc(50% - 50vw) 2.5rem;
   padding: 0;
   border-bottom: none;
   text-align: center;
   /* No background here — the body's lily shows through behind the card. */
 }
 .hero--romantic .hero-inner {
-  max-width: 960px;
+  max-width: 1320px;
   margin: 1.5rem auto 0;
   background: #fffaf0;            /* solid cream, like a printed card */
   padding: 2.5rem 2.5rem 2.75rem;
