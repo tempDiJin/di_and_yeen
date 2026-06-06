@@ -30,7 +30,7 @@ PASSWORD="${STATICRYPT_PASSWORD:-}"
 
 # ─── Login screen styling ─────────────────────────────────────────
 TEMPLATE_TITLE="Welcome — please sign in"
-TEMPLATE_INSTRUCTIONS='The concatenated name abbreviation of some celebrates.<br><small style="font-size:0.8em;opacity:0.8;">Hints: 六张黄色小纸条顺序排列。</small>'
+TEMPLATE_INSTRUCTIONS='The concatenated name abbreviation of some celebrates.<br><small style="font-size:0.8em;opacity:0.8;">Hints: dy<date_together>。</small>'
 TEMPLATE_BUTTON="Enter"
 # Romantic purple palette
 TEMPLATE_COLOR_PRIMARY="#9b59b6"
