@@ -51,10 +51,16 @@ body {
    they scroll down, the image scrolls with them, revealing the lilies
    at the bottom. */
 body.has-bg-image {
-  background-size: cover;
+  /* Show the whole image, no cropping. Width fills the page, height
+     is the image's natural aspect. If the page has more content than
+     the image is tall, the area below shows the fallback color set
+     above (background-color). Change --page-fill below to match the
+     bottom edge of your specific image if you want a seamless join. */
+  background-size: 100% auto;
   background-position: top center;
   background-attachment: scroll;
   background-repeat: no-repeat;
+  background-color: #f4f8f2;    /* fallback shown below the image */
 }
 
 /* Soft, uniform cream wash over the whole document so content stays

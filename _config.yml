@@ -47,7 +47,7 @@ counting_since: "2026-05-01T00:00:00-07:00"
 
 # Path to the romantic hero/background image. Drop the file in
 # assets/images/ and update this line.
-hero_image: "/assets/images/lily-hero.jpg"
+hero_image: "/assets/images/lily-hero-20260631.png"
 
 # Image carousel under the hero — slowly scrolling marquee of photos.
 # Replace these placeholder SVGs with your own photos at any time;
@@ -61,7 +61,7 @@ carousel:
     alt: "tmp"
   - src: /assets/images/2026-05-couple/04.jpg
     alt: "tmp"
-  - src: /assets/images/2026-05-couple/05.jpg
+  - src: /assets/images/2026-05-couple/13.jpg
     alt: "tmp"
   - src: /assets/images/2026-05-couple/06.jpg
     alt: "tmp"
@@ -69,13 +69,13 @@ carousel:
     alt: "tmp"
   - src: /assets/images/2026-05-couple/08.jpg
     alt: "tmp"
-  - src: /assets/images/2026-05-couple/09.jpg
+  - src: /assets/images/2026-05-couple/14.jpg
     alt: "tmp"
   - src: /assets/images/2026-05-couple/10.jpg
     alt: "tmp"
   - src: /assets/images/2026-05-couple/11.jpg
     alt: "tmp"
-  - src: /assets/images/2026-05-couple/12.jpg
+  - src: /assets/images/2026-05-couple/15.jpg
     alt: "tmp"
 
 # Set this to your repository URL once you push it.
