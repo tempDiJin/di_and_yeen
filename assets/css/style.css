@@ -142,6 +142,33 @@ body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
 }
 
+/* Same light-text treatment for pages whose content sits directly under
+   main.container without a section wrapper — currently: the blog index
+   page (/blog/) has <header class="page-header"> + <ul class="post-list">
+   + <nav class="pagination"> as direct children of main.container, not
+   wrapped in <section>. Without this block those elements would keep
+   dark-brown text and be nearly unreadable on a vivid background image. */
+body.has-bg-image.layout-default main.container > .page-header h1,
+body.has-bg-image.layout-default main.container > .page-header .subtitle,
+body.has-bg-image.layout-default main.container > .pagination,
+body.has-bg-image.layout-default main.container > .pagination a,
+body.has-bg-image.layout-default main.container > .pagination span {
+  color: #fef8e8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+body.has-bg-image.layout-default main.container > .post-list a.post-title {
+  color: #fef8e8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+body.has-bg-image.layout-default main.container > .post-list a.post-title:hover {
+  color: #ffe28a;
+}
+body.has-bg-image.layout-default main.container > .post-list .post-date,
+body.has-bg-image.layout-default main.container > .post-list .excerpt {
+  color: #f2e8d0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
 /* ─── Header ──────────────────────────────────────────────────── */
 .site-header {
   border-bottom: 1px solid var(--line);
