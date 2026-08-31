@@ -47,7 +47,7 @@ counting_since: "2026-05-01T00:00:00-07:00"
 
 # Path to the romantic hero/background image. Drop the file in
 # assets/images/ and update this line.
-hero_image: "/assets/images/lily-hero-20260631.png"
+hero_image: "/assets/images/background-20260830_f.png"  #lily-hero-20260631.png"
 
 # Image carousel under the hero — slowly scrolling marquee of photos.
 # Replace these placeholder SVGs with your own photos at any time;

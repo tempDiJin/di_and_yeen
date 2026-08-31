@@ -6,8 +6,9 @@
 :root {
   --bg: #fffaf0;            /* warm cream */
   --surface: #ffffff;
-  --text: #3a2a1c;          /* warm bistre for body text */
-  --muted: #8a7460;         /* dusty gold-grey */
+  --text: #6b5540;          /* medium warm brown — softer than pure black */
+  --text-strong: #4a3826;   /* for occasional emphasis, still not black */
+  --muted: #9b876e;         /* dusty gold-grey, lighter than before */
   --line: #f0e2c8;          /* soft champagne hairline */
   --accent: #b8860b;        /* deep gold */
   --accent-hover: #8b6508;
@@ -103,6 +104,42 @@ body.has-bg-image.layout-video main.container {
     0 18px 50px -18px rgba(120, 80, 0, 0.18);
   margin-top: 1.5rem;
   margin-bottom: 2.5rem;
+}
+
+/* On the homepage, the below-hero sections (Recent posts, Recent albums,
+   Latest videos) sit directly on the background image. Give their text
+   a light cream color with a soft dark shadow so it stays legible on
+   any background image (vivid or muted). The hero and carousel are
+   excluded because the hero has its own cream card and the carousel is
+   just images. */
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) {
+  color: #fbf5e6;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) h2,
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) h3 {
+  color: #fef8e8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .post-title,
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .video-grid h3 a {
+  color: #fef8e8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .post-title:hover,
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .video-grid h3 a:hover {
+  color: #ffe28a;   /* soft warm yellow on hover */
+}
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .post-date,
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .excerpt,
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .album-meta p,
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .video-grid .meta {
+  color: #f2e8d0;   /* slightly warmer / softer than the titles */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+body.has-bg-image.layout-default main.container > section:not(.hero):not(.hero--romantic):not(.carousel-section) .section-heading a {
+  color: #fef8e8;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
 }
 
 /* ─── Header ──────────────────────────────────────────────────── */
@@ -331,7 +368,7 @@ pre code { background: transparent; padding: 0; }
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #8a6320;
+  color: #a1855a;            /* softer gold-brown */
   text-align: center;
 }
 
@@ -365,7 +402,7 @@ pre code { background: transparent; padding: 0; }
   font-weight: 500;
   font-size: 1.1rem;
   line-height: 1.55;
-  color: #1f1208;
+  color: #5a4432;            /* softer warm brown, no longer near-black */
   text-align: center;
   margin: 0 auto 0.6rem;
 }
@@ -375,7 +412,7 @@ pre code { background: transparent; padding: 0; }
   font-family: var(--font-sans);
   font-style: normal;
   font-size: 0.85rem;
-  color: #6b4f2e;
+  color: #8f7250;            /* dusty gold-brown, lighter than before */
   letter-spacing: 0.04em;
   margin: 0 auto;
 }
